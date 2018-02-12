@@ -1,0 +1,4 @@
+"0","library(ggmosaic)"
+"0","trips %>% group_by(Day, `Member type`) %>% tally() %>%"
+"0","  ggplot(aes(x = product(Day), weight=n, fill=`Member type`)) +"
+"0","  geom_mosaic()"

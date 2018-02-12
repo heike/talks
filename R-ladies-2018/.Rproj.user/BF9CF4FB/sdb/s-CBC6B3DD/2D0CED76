@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "newnames <- newnames %>% arrange(desc(n))\nnewnames <- newnames[-(1:2),]\nfirstbatch <- findGivenNames(newnames$firstname[1:100])\nallothers <- findGivenNames(newnames$firstname[-(1:100)])\n\ngenderize.result <- rbind(firstbatch, allothers)\nwrite.csv(genderize.result, \"data/new-package-authors.csv\", row.names=FALSE)\nnames(newnames)[2] <- \"freq\"\naddnames <- left_join(genderize.result, newnames %>% select(-length), by=c(\"name\"=\"firstname\"))\naddnames$guess <- NA\nnames(addnames)[1] <- \"firstname\"\n\nall_names <- read.csv(\"data/all_names_manual.csv\")\nall_names <- rbind(all_names, addnames)\nwrite.csv(all_names, \"data/all_names_manual.csv\", row.names=FALSE)\n",
+    "created" : 1518463170582.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "570292052",
+    "id" : "2D0CED76",
+    "lastKnownWriteTime" : 4294967302,
+    "last_content_update" : 1518463749992,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

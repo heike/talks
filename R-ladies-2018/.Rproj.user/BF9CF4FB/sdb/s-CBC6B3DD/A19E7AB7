@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\ntrips <- read.csv(\"2016-Q3-cabi-trips-history-data/2016-Q3-Trips-History-Data-1.csv\")\ndoc <- xml2::read_xml(\"https://feeds.capitalbikeshare.com/stations/stations.xml\")\nstations_list <- rvest::html_nodes(doc, \"station\")\nstations <- stations_list %>% purrr::map_df(.f = function(x) {\n  header <- names(xml2::as_list(x)[-10])\n  dframe <- as.data.frame(xml2::as_list(x)[-10])\n  names(dframe) <- header\n  dframe\n})\nwrite.csv(stations, \"data/stations.csv\", row.names=FALSE)\n###################\n\nEach line in the data set `trips` is an instance of a bike rental. \n\n- How many bike rentals does the data describe\n\n\n\ntrips %>% ggplot(aes(x = Duration..ms., fill = Member.Type)) + geom_histogram(binwidth=10*60*1000)\n",
+    "created" : 1518380892210.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4208930307",
+    "id" : "A19E7AB7",
+    "lastKnownWriteTime" : 1518382649,
+    "last_content_update" : 1518382649759,
+    "path" : "~/Documents/Data/Bikesharing/get-stations-info.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

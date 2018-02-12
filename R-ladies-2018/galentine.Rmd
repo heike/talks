@@ -1,0 +1,414 @@
+---
+title: "ggGalentine"
+subtitle: "Power to the R Ladies"
+author: "Heike Hofmann"
+date: "2018/2/13"
+ratio: 16x10
+output:
+  rmdshower::shower_presentation:
+    self_contained: false
+    katex: true
+    theme: ribbon
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = FALSE)
+```
+
+
+## ggGalentine {.white}
+
+<img class="cover" src="images/medley.png" alt="", width=2000>
+
+
+## What is Galentine's day?
+
+> Oh it’s only the best day of the year. Every February 13th, my lady friends and I leave our husbands and our boyfriends at home, and we just come and kick it, breakfast-style. **Ladies celebrating ladies.** It’s like Lilith Fair, minus the angst. Plus frittatas.
+
+**Leslie Knope, Parks & Rec**
+
+# `ggplot2` 
+
+## `ggplot2` is ...
+
+- Wildly popular package for statistical graphics: by now about 400k monthly downloads from CRAN ( more than 10k times per day)
+
+```{r, echo=FALSE, message=FALSE}
+library("dlstats")
+library(ggplot2)
+library(gretchenalbrecht)
+csafe <- make_palette("/Users/heike/CSAFE/CSAFE Logo.png")
+cols12 <- get_pal(13, csafe) 
+
+
+dframe <- cran_stats("ggplot2")
+dframe$month <- lubridate::month(dframe$end)
+ggplot(data = dframe[-nrow(dframe),], 
+       aes(x = end, weight = downloads/1000, fill=factor(month))) + 
+  geom_bar(width=28) + 
+  ylab("Number of monthly downloads (in thousands)") + xlab("Date") +
+  ggtitle("Number of monthly downloads of ggplot2") +
+  theme_bw() +
+  scale_fill_manual(values=cols12$col[-1]) +
+  theme(legend.position="none")
+```
+
+## `ggplot2` is ...
+
+- Developed by Hadley Wickham (An ISU Alumni)
+- Designed to adhere to good graphical practices
+- Constructs plots using the concept of layers
+- Supports a wide variety plot types and extensions<br><br><br><br><br><br>
+- http://ggplot2.org/book/ or Hadley's book *ggplot2: Elegant Graphics for Data Analysis* for reference 
+
+## Grammar of Graphics
+
+A graphical representation (plot) consists of:
+
+1. **mappings** (`aes`):  data variables are mapped to graphical elements
+2. **layers**:  geometric elements (`geoms`, such as points, lines, rectangles, text, ...) and statistical transformations (`stats`, are identity, counts, bins, ...)
+3. **scales**: map values in the data space to values in an aesthetic space (e.g. color, size, shape, but also position)
+4. **coordinate system** (`coord`): normally Cartesian, but pie charts use e.g. polar coordinates
+5. **facetting**: for small multiples (subsets) and their arrangement
+6. **theme**: fine-tune display items, such as font and its size, color of background, margins, ...
+
+
+## Telling stories with graphics
+
+Andrew Flowers (Rstudio conference, 2018): What makes a data story worth telling?
+
+<div class="double">
+<p class="double-flow">
+
+
+1. Novelty
+2. Outlier
+3. Archetype
+4. Trend
+5. Debunking
+6. Forecast
+</p><p class="double-flow">
+*Where is the danger?*
+
+1. Triviality
+2. Spurious result
+3. Oversimplification
+4. Variance
+5. Confirmation Bias
+6. Overfitting
+</p>
+</div>
+
+## Story telling - what is the story?
+
+```{r, fig.width=4.5, fig.height=4.5}
+stations <- read.csv("data/stations.csv")
+stations %>% ggplot(aes(x = long, y = lat)) + 
+  geom_point() + coord_equal()
+```
+
+## Story telling
+
+Data is collected within a context -  visually we can provide context with layers (using `ggmap` by David Kahle):
+
+```{r, echo=FALSE, fig.width=4.5, fig.height=4.5, message=FALSE}
+library(ggmap)
+if (file.exists("data/dc.rds")) {
+  dc <- readRDS("data/dc.rds")
+} else {
+  dc <- get_map("washington dc", zoom=10)
+  saveRDS(dc, "data/dc.rds")
+}
+ggmap(dc, extent = "normal") + 
+  geom_point(aes(x = long, y = lat), data = stations) +
+  ggthemes::theme_map()
+
+```
+
+
+
+
+## capital bikesharing
+
+Capital bikeshare is DC company; in 2017, 3.7 million bike trips were made 
+
+```{r, fig.width=6, fig.height=4}
+trips <- readRDS("data/trips-2017.rds")
+trips %>% ggplot(aes(x = `Duration (ms)`/1000/60)) + 
+  geom_histogram(binwidth=15) + xlab("Trip Duration (in mins)")
+```
+
+
+## Context provides a frame to ask questions
+
+Where are the metro stations?
+
+```{r, echo=FALSE, fig.width=4.5, fig.height=4.5, message=FALSE}
+stations$Metro = FALSE
+idx <- grep("Metro", stations$name)
+stations$Metro[idx] <- TRUE
+
+ggmap(dc, extent = "normal") + 
+  geom_point(aes(x = long, y = lat, colour=Metro), 
+             data = filter(stations, !Metro)) +
+  geom_point(aes(x = long, y = lat, colour=Metro), 
+             data = filter(stations, Metro)) +
+  ggthemes::theme_map() +
+  scale_colour_manual("Metro Station", values = c("grey40", "darkorange")) 
+
+  
+```
+
+## Where are they biking? - Zoom into Rockville
+
+Thickness of lines shows number of rentals - metro stations are popular start and end stations
+
+
+<div class="double">
+<p class="double-flow">
+![](images/geomnet-rockville.png)
+</p><p class="double-flow">
+<br><br><br>
+Made with R package `geomnet` by Sam Tyner
+</p>
+</div>
+
+
+
+## Who is biking when?
+
+- Regular members bike during the week, casual riders during the weekend
+
+
+```{r, echo=FALSE, fig.height=4, message=FALSE}
+library(ggmosaic)
+trips %>% group_by(Day, `Member type`) %>% tally() %>%
+  ggplot(aes(x = product(Day), weight=n, fill=`Member type`)) +
+  geom_mosaic()
+```
+
+- Used `ggmosaic` package by Haley Jeppson
+
+
+## { .fullpage .white}
+
+<div class="fullpage width">
+
+```{r, echo=FALSE, fig.width=8, fig.height=5}
+hourlies <- trips %>% 
+  group_by(Year, Month, Mdate, Day, hour, `Member type`) %>%
+  summarise(
+    Hourly_counts = n(),
+    Date = as.Date(`Start date`)[1]
+  )
+library(sugrrants)
+calendar_df <- hourlies %>% filter(`Member type`=="Member") %>%
+  ungroup() %>%
+  mutate(
+    Weekend = if_else(Day %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+  ) %>%
+  frame_calendar(
+    x = hour, y = Hourly_counts, date = Date, calendar = "monthly"
+  ) 
+
+p <- calendar_df %>% 
+  ggplot(aes(x = .hour, y = .Hourly_counts, group = Date, colour = Weekend)) +
+  geom_line() + 
+  theme_bw() +
+  theme(legend.position = "bottom")
+prettify(p, label.padding = unit(0.08, "lines"))
+```
+</div>
+
+
+## What can we see?
+
+
+- Clear distinction between work days and the weekend:
+    - Commute peaks on work days
+    - holidays, e.g. in January: New Year's day, MLK
+- Inauguration on Jan 20, Science march on Jan 21 (more rentals on Sat)    
+- Weather events: there was freezing rain and snow in the afternoon of Nov 7
+- US traditions: biking is not generally an activity associated with Thanksgiving<br><br>
+- plot made with the package `sugrrants` by Earo Wang
+
+## { .fullpage .white}
+
+<div class="fullpage width">
+
+```{r, echo=FALSE, fig.width=8, fig.height=5}
+hourlies <- trips %>% 
+  group_by(`Start station number`, `Start station`, Year, Month, Mdate, Day, hour) %>%
+  summarise(
+    Hourly_counts = n(),
+    Date = as.Date(`Start date`)[1]
+  )
+library(sugrrants)
+calendar_df <- hourlies %>% filter(`Start station number` %in% c(31623, 31258, 31247)) %>%
+  ungroup() %>%
+  mutate(
+    Weekend = if_else(Day %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+  ) %>%
+  frame_calendar(
+    x = hour, y = Hourly_counts, date = Date, calendar = "monthly"
+  ) 
+
+p <- calendar_df %>% 
+  ggplot(aes(x = .hour, y = .Hourly_counts, 
+             group = interaction(Date, `Start station number`), 
+             colour = `Start station`)) +
+  geom_line() + 
+  theme_bw() +
+  theme(legend.position = "bottom")
+prettify(p, label.padding = unit(0.08, "lines"))
+```
+</div>
+
+## `ggplot2`
+
+- good theoretical foundation
+- community contributions make R and `ggplot2` great <br><br><br><br><br>
+- Let's look more closely at the R community ... drawing heavily on Di Cook's material for WSDS 2016
+
+# genderize
+
+## genderize.io
+
+<img src="images/genderize.png" alt="genderize.io" style="width:800px;vertical-align:top;float:right;">
+
+
+## `genderizeR` package {.smaller}
+
+Kamil Wais (2016). genderizeR: Gender Prediction Based on First Names. R
+  package version 2.0.0. https://CRAN.R-project.org/package=genderizeR
+  
+```{r results='hide', cache=TRUE, message=FALSE}
+suppressMessages(library(genderizeR))
+
+givenNames <- findGivenNames(c("heike", "sam", "samantha", "haley", "hadley", "Tes", "Jing", "Jackie"))
+```
+```{r}
+givenNames
+```
+
+##
+
+- results from findGivenNames build database to be used in `genderize` function 
+- genderize.io API restricts to at most free 1000 checks a day
+- genderize.io  allows for country specification, but `findGivenNames` doesn't support that yet
+
+# R package authors
+
+## Collect the list from RStudio's CRAN mirror
+
+- Download package details from [http://cran.rstudio.com//web/packages/packages.rds](http://cran.rstudio.com//web/packages/packages.rds)
+
+```{r}
+db <- readRDS("data/packages.rds")
+glimpse(db)
+```
+
+## Identify first names
+
+
+```{r echo=FALSE}
+library(stringr)
+library(Hmisc)
+maintainer_year_unclean <- data.frame(db, stringsAsFactors = FALSE) %>% transmute(
+    name = Maintainer,
+    year = as.integer(substr(Published, 1, 4)),
+    author = Author,
+    title = Title
+  )
+
+clean_up <- function(x){
+  # get rid of punctuation
+  x1 <- gsub("[[:punct:]]", " ", x)
+  # remove leading space before first name
+  x2 <- str_trim(x1 , side="left")
+  # get first name only
+  x3 <- sapply(x2, function(x) strsplit(x, "[^[:alnum:]]+")[[1]][1])
+  # gender function only takes lower case
+  x4 <- tolower(x3)
+  return(x4)
+}
+maintainer_year_clean <- maintainer_year_unclean %>% mutate(
+  firstname = clean_up(name)
+)
+```
+
+```{r}
+glimpse(maintainer_year_clean)
+```
+
+
+
+## Manually edited name list
+
+- First names of *maintainers* of R packages, genderized in March 2016, updated in February 2018
+- Manually edited to give some guesses for non-European names 
+- Still problematic:
+    - first word in maintainer is assumed to be first name 
+    - multiple authors? 
+    - binary gender assignment ...
+  
+## 
+
+```{r}
+genderized_names <- read_csv("data/all_names_manual.csv")
+maintainer_year_clean <- left_join(maintainer_year_clean,
+                                   genderized_names, by="firstname")
+maintainer_year_clean <- maintainer_year_clean %>% filter(firstname != "orphaned") 
+glimpse(maintainer_year_clean)
+```
+
+## Create summaries
+
+```{r}
+maintainer_year_clean %>%  
+  group_by(gender) %>% tally()
+```
+
+## Plot counts
+
+```{r fig.width=5, fig.height=4, fig.align='center'}
+ggplot(maintainer_year_clean, aes(x=gender, fill=gender)) +
+  geom_bar() +
+  scale_fill_manual("", values=c("female"="#fc8d59", "male"="#2166ac"),
+                    na.value="white")
+```
+
+## By year
+
+```{r fig.width=9, fig.height=4, fig.align='center'}
+ggplot(maintainer_year_clean, aes(x=gender, fill=gender)) +
+  geom_bar() +
+  scale_fill_manual("", values=c("female"="#fc8d59", "male"="#2166ac"),
+                    na.value="white") +
+  facet_wrap(~year)
+```
+
+## 
+
+```{r fig.width=9, fig.height=4, fig.align='center'}
+ggplot(maintainer_year_clean, aes(x=year, fill=gender)) +
+  geom_bar() +
+  scale_fill_manual("", values=c("female"="#fc8d59", "male"="#2166ac"),
+                    na.value="white")
+```
+
+## Focus on proportions
+
+```{r fig.width=9, fig.height=4, fig.align='center'}
+ggplot(maintainer_year_clean, aes(x=product(year), fill=gender)) +
+  geom_mosaic() +
+  scale_fill_manual("", values=c("female"="#fc8d59", "male"="#2166ac"),
+                    na.value="white")
+```
+
+
+## {.white}
+
+<img class="cover" src="images/keep_calm_and_r_lady_on.png" alt="", width=2000>
+
+

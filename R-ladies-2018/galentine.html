@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ggGalentine</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="galentine_files/rmdshower/node_modules/shower-ribbon/styles/screen-4x3.css">
+  <link rel="stylesheet" href="galentine_files/rmdshower/style-common.css">
+  <link rel="stylesheet" href="galentine_files/rmdshower/style-ribbon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="galentine_files/rmdshower/auto-render.min.js" type="text/javascript"></script>
+  
+  
+    <style type="text/css">
+   div.sourceCode { overflow-x: auto; }
+   table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+     margin: 0; padding: 0; vertical-align: baseline; border: none; }
+   table.sourceCode { width: 100%; line-height: 100%; }
+   td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+   td.sourceCode { padding-left: 5px; }
+   code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+   code > span.dt { color: #902000; } /* DataType */
+   code > span.dv { color: #40a070; } /* DecVal */
+   code > span.bn { color: #40a070; } /* BaseN */
+   code > span.fl { color: #40a070; } /* Float */
+   code > span.ch { color: #4070a0; } /* Char */
+   code > span.st { color: #4070a0; } /* String */
+   code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+   code > span.ot { color: #007020; } /* Other */
+   code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+   code > span.fu { color: #06287e; } /* Function */
+   code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+   code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+   code > span.cn { color: #880000; } /* Constant */
+   code > span.sc { color: #4070a0; } /* SpecialChar */
+   code > span.vs { color: #4070a0; } /* VerbatimString */
+   code > span.ss { color: #bb6688; } /* SpecialString */
+   code > span.im { } /* Import */
+   code > span.va { color: #19177c; } /* Variable */
+   code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+   code > span.op { color: #666666; } /* Operator */
+   code > span.bu { } /* BuiltIn */
+   code > span.ex { } /* Extension */
+   code > span.pp { color: #bc7a00; } /* Preprocessor */
+   code > span.at { color: #7d9029; } /* Attribute */
+   code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+   code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+   code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+   code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  
+  
+  
+</head>
+
+<body class="shower list">
+
+  <header class="caption">
+    <h1>ggGalentine</h1>
+    <p>Heike Hofmann</p>
+  </header>
+
+    
+  
+<section id="gggalentine" class="slide level2 white">
+<h2>ggGalentine</h2>
+<p><img class="cover" src="images/medley.png" alt="", width=2000></p>
+</section>
+<section id="what-is-galentines-day" class="slide level2">
+<h2>What is Galentine’s day?</h2>
+<blockquote>
+<p>Oh it’s only the best day of the year. Every February 13th, my lady friends and I leave our husbands and our boyfriends at home, and we just come and kick it, breakfast-style. <strong>Ladies celebrating ladies.</strong> It’s like Lilith Fair, minus the angst. Plus frittatas.</p>
+</blockquote>
+<p><strong>Leslie Knope, Parks &amp; Rec</strong></p>
+</section>
+<section id="ggplot2" class="titleslide slide level1"><h2 class="shout"><code>ggplot2</code></h2></section><section id="ggplot2-is" class="slide level2">
+<h2><code>ggplot2</code> is …</h2>
+<ul>
+<li>Wildly popular package for statistical graphics: by now about 400k monthly downloads from CRAN ( more than 10k times per day)</li>
+</ul>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-1-1.png" width="768" /></p>
+</section><section id="ggplot2-is-1" class="slide level2">
+<h2><code>ggplot2</code> is …</h2>
+<ul>
+<li>Developed by Hadley Wickham (An ISU Alumni)</li>
+<li>Designed to adhere to good graphical practices</li>
+<li>Constructs plots using the concept of layers</li>
+<li>Supports a wide variety plot types and extensions<br><br><br><br><br><br></li>
+<li><a href="http://ggplot2.org/book/" class="uri">http://ggplot2.org/book/</a> or Hadley’s book <em>ggplot2: Elegant Graphics for Data Analysis</em> for reference</li>
+</ul>
+</section><section id="grammar-of-graphics" class="slide level2">
+<h2>Grammar of Graphics</h2>
+<p>A graphical representation (plot) consists of:</p>
+<ol type="1">
+<li><strong>mappings</strong> (<code>aes</code>): data variables are mapped to graphical elements</li>
+<li><strong>layers</strong>: geometric elements (<code>geoms</code>, such as points, lines, rectangles, text, …) and statistical transformations (<code>stats</code>, are identity, counts, bins, …)</li>
+<li><strong>scales</strong>: map values in the data space to values in an aesthetic space (e.g. color, size, shape, but also position)</li>
+<li><strong>coordinate system</strong> (<code>coord</code>): normally Cartesian, but pie charts use e.g. polar coordinates</li>
+<li><strong>facetting</strong>: for small multiples (subsets) and their arrangement</li>
+<li><strong>theme</strong>: fine-tune display items, such as font and its size, color of background, margins, …</li>
+</ol>
+</section><section id="telling-stories-with-graphics" class="slide level2">
+<h2>Telling stories with graphics</h2>
+<p>Andrew Flowers (Rstudio conference, 2018): What makes a data story worth telling?</p>
+<div class="double">
+<p class="double-flow">
+<ol type="1">
+<li>Novelty</li>
+<li>Outlier</li>
+<li>Archetype</li>
+<li>Trend</li>
+<li>Debunking</li>
+<li>Forecast</li>
+</ol>
+</p>
+<p class="double-flow">
+<p><em>Where is the danger?</em></p>
+<ol type="1">
+<li>Triviality</li>
+<li>Spurious result</li>
+<li>Oversimplification</li>
+<li>Variance</li>
+<li>Confirmation Bias</li>
+<li>Overfitting</li>
+</ol>
+</p>
+</div>
+</section><section id="story-telling---what-is-the-story" class="slide level2">
+<h2>Story telling - what is the story?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stations &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/stations.csv&quot;</span>)
+stations %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">coord_equal</span>()</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-2-1.png" width="432" /></p>
+</section><section id="story-telling" class="slide level2">
+<h2>Story telling</h2>
+<p>Data is collected within a context - visually we can provide context with layers (using <code>ggmap</code> by David Kahle):</p>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-3-1.png" width="432" /></p>
+</section><section id="capital-bikesharing" class="slide level2">
+<h2>capital bikesharing</h2>
+<p>Capital bikeshare is DC company; in 2017, 3.7 million bike trips were made</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trips &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/trips-2017.rds&quot;</span>)
+trips %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Duration (ms)</span><span class="st">`</span>/<span class="dv">1000</span>/<span class="dv">60</span>)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">15</span>) +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Trip Duration (in mins)&quot;</span>)</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-4-1.png" width="576" /></p>
+</section><section id="context-provides-a-frame-to-ask-questions" class="slide level2">
+<h2>Context provides a frame to ask questions</h2>
+<p>Where are the metro stations?</p>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-5-1.png" width="432" /></p>
+</section><section id="where-are-they-biking---zoom-into-rockville" class="slide level2">
+<h2>Where are they biking? - Zoom into Rockville</h2>
+<p>Thickness of lines shows number of rentals - metro stations are popular start and end stations</p>
+<div class="double">
+<p class="double-flow">
+<img src="images/geomnet-rockville.png" />
+</p>
+<p class="double-flow">
+<br><br><br> Made with R package <code>geomnet</code> by Sam Tyner
+</p>
+</div>
+</section><section id="who-is-biking-when" class="slide level2">
+<h2>Who is biking when?</h2>
+<ul>
+<li>Regular members bike during the week, casual riders during the weekend</li>
+</ul>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-6-1.png" width="768" /></p>
+<ul>
+<li>Used <code>ggmosaic</code> package by Haley Jeppson</li>
+</ul>
+</section><section id="section" class="slide level2 fullpage white">
+<h2></h2>
+<div class="fullpage width">
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-7-1.png" width="768" /></p>
+</div>
+</section><section id="what-can-we-see" class="slide level2">
+<h2>What can we see?</h2>
+<ul>
+<li>Clear distinction between work days and the weekend:
+<ul>
+<li>Commute peaks on work days</li>
+<li>holidays, e.g. in January: New Year’s day, MLK</li>
+</ul></li>
+<li>Inauguration on Jan 20, Science march on Jan 21 (more rentals on Sat)<br />
+</li>
+<li>Weather events: there was freezing rain and snow in the afternoon of Nov 7</li>
+<li>US traditions: biking is not generally an activity associated with Thanksgiving<br><br></li>
+<li>plot made with the package <code>sugrrants</code> by Earo Wang</li>
+</ul>
+</section><section id="section-1" class="slide level2 fullpage white">
+<h2></h2>
+<div class="fullpage width">
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" /></p>
+</div>
+</section><section id="ggplot2-1" class="slide level2">
+<h2><code>ggplot2</code></h2>
+<ul>
+<li>good theoretical foundation</li>
+<li>community contributions make R and <code>ggplot2</code> great <br><br><br><br><br></li>
+<li>Let’s look more closely at the R community</li>
+</ul>
+</section>
+<section id="genderize" class="titleslide slide level1"><h2 class="shout">genderize</h2></section><section id="genderize.io" class="slide level2">
+<h2>genderize.io</h2>
+<p><img src="images/genderize.png" alt="genderize.io" style="width:800px;vertical-align:top;float:right;"></p>
+</section><section id="genderizer-package" class="slide level2 smaller">
+<h2><code>genderizeR</code> package</h2>
+<p>Kamil Wais (2016). genderizeR: Gender Prediction Based on First Names. R package version 2.0.0. <a href="https://CRAN.R-project.org/package=genderizeR" class="uri">https://CRAN.R-project.org/package=genderizeR</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(genderizeR))
+
+givenNames &lt;-<span class="st"> </span><span class="kw">findGivenNames</span>(<span class="kw">c</span>(<span class="st">&quot;heike&quot;</span>, <span class="st">&quot;sam&quot;</span>, <span class="st">&quot;samantha&quot;</span>, <span class="st">&quot;haley&quot;</span>, <span class="st">&quot;hadley&quot;</span>, <span class="st">&quot;Tes&quot;</span>, <span class="st">&quot;Jing&quot;</span>, <span class="st">&quot;Jackie&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">givenNames</code></pre></div>
+<pre><code>##        name gender probability count
+## 1:    heike female        0.98    48
+## 2:      sam   male        0.76  3336
+## 3: samantha female           1  2438
+## 4:    haley female        0.99   393
+## 5:   hadley female        0.77    13
+## 6:      tes female        0.71     7
+## 7:     jing female        0.72   126
+## 8:   jackie female        0.95  1453</code></pre>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<ul>
+<li>results from findGivenNames build database to be used in <code>genderize</code> function</li>
+<li>genderize.io API restricts to at most free 1000 checks a day</li>
+<li>genderize.io allows for country specification, but <code>findGivenNames</code> doesn’t support that yet</li>
+</ul>
+</section>
+<section id="r-package-authors" class="titleslide slide level1"><h2 class="shout">R package authors</h2></section><section id="collect-the-list-from-rstudios-cran-mirror" class="slide level2">
+<h2>Collect the list from RStudio’s CRAN mirror</h2>
+<ul>
+<li>Download package details from <a href="http://cran.rstudio.com//web/packages/packages.rds" class="uri">http://cran.rstudio.com//web/packages/packages.rds</a></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">db &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;data/packages.rds&quot;</span>)
+<span class="kw">glimpse</span>(db)</code></pre></div>
+<pre><code>##  chr [1:12148, 1:65] &quot;A3&quot; &quot;abbyyR&quot; &quot;abc&quot; &quot;abc.data&quot; &quot;ABC.RAP&quot; ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:65] &quot;Package&quot; &quot;Version&quot; &quot;Priority&quot; &quot;Depends&quot; ...
+##  - attr(*, &quot;web_dir&quot;)= chr &quot;/srv/ftp/pub/R/web/packages&quot;
+##  - attr(*, &quot;src_dir&quot;)= chr &quot;/srv/ftp/pub/R/src/contrib&quot;</code></pre>
+</section><section id="identify-first-names" class="slide level2">
+<h2>Identify first names</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(maintainer_year_clean)</code></pre></div>
+<pre><code>## Observations: 12,148
+## Variables: 5
+## $ name      &lt;chr&gt; &quot;Scott Fortmann-Roe &lt;scottfr@berkeley.edu&gt;&quot;, &quot;Gaurav...
+## $ year      &lt;int&gt; 2015, 2017, 2015, 2015, 2016, 2017, 2012, 2017, 2016...
+## $ author    &lt;chr&gt; &quot;Scott Fortmann-Roe&quot;, &quot;Gaurav Sood [aut, cre]&quot;, &quot;Csi...
+## $ title     &lt;chr&gt; &quot;Accurate, Adaptable, and Accessible Error Metrics f...
+## $ firstname &lt;chr&gt; &quot;scott&quot;, &quot;gaurav&quot;, &quot;blum&quot;, &quot;blum&quot;, &quot;abdulmonem&quot;, &quot;fl...</code></pre>
+</section><section id="manually-edited-name-list" class="slide level2">
+<h2>Manually edited name list</h2>
+<ul>
+<li>First names of <em>maintainers</em> of R packages, genderized in March 2016, updated in February 2018</li>
+<li>Manually edited to give some guesses for non-European names</li>
+<li>Still problematic:
+<ul>
+<li>first word in maintainer is assumed to be first name</li>
+<li>multiple authors?</li>
+<li>binary gender assignment …</li>
+</ul></li>
+</ul>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genderized_names &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/all_names_manual.csv&quot;</span>)
+maintainer_year_clean &lt;-<span class="st"> </span><span class="kw">left_join</span>(maintainer_year_clean,
+                                   genderized_names, <span class="dt">by=</span><span class="st">&quot;firstname&quot;</span>)
+maintainer_year_clean &lt;-<span class="st"> </span>maintainer_year_clean %&gt;%<span class="st"> </span><span class="kw">filter</span>(firstname !=<span class="st"> &quot;orphaned&quot;</span>) 
+<span class="kw">glimpse</span>(maintainer_year_clean)</code></pre></div>
+<pre><code>## Observations: 12,115
+## Variables: 10
+## $ name        &lt;chr&gt; &quot;Scott Fortmann-Roe &lt;scottfr@berkeley.edu&gt;&quot;, &quot;Gaur...
+## $ year        &lt;int&gt; 2015, 2017, 2015, 2015, 2016, 2017, 2012, 2017, 20...
+## $ author      &lt;chr&gt; &quot;Scott Fortmann-Roe&quot;, &quot;Gaurav Sood [aut, cre]&quot;, &quot;C...
+## $ title       &lt;chr&gt; &quot;Accurate, Adaptable, and Accessible Error Metrics...
+## $ firstname   &lt;chr&gt; &quot;scott&quot;, &quot;gaurav&quot;, &quot;blum&quot;, &quot;blum&quot;, &quot;abdulmonem&quot;, &quot;...
+## $ freq        &lt;int&gt; 55, 5, 2, 2, NA, 18, 1, 11, NA, 13, 21, 25, 2, 36,...
+## $ gender      &lt;chr&gt; &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, NA, &quot;male&quot;, &quot;male&quot;...
+## $ probability &lt;dbl&gt; 1.00, 1.00, NA, NA, NA, 1.00, 1.00, 0.99, NA, 0.53...
+## $ count       &lt;int&gt; 3450, 241, NA, NA, NA, 489, 33, 2098, NA, 1523, 49...
+## $ guess       &lt;chr&gt; &quot;no&quot;, &quot;no&quot;, &quot;yes&quot;, &quot;yes&quot;, NA, &quot;no&quot;, &quot;no&quot;, &quot;no&quot;, NA...</code></pre>
+</section><section id="create-summaries" class="slide level2">
+<h2>Create summaries</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">maintainer_year_clean %&gt;%<span class="st">  </span>
+<span class="st">  </span><span class="kw">group_by</span>(gender) %&gt;%<span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   gender     n
+##   &lt;chr&gt;  &lt;int&gt;
+## 1 female  1747
+## 2 male    9825
+## 3 &lt;NA&gt;     543</code></pre>
+</section><section id="plot-counts" class="slide level2">
+<h2>Plot counts</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(maintainer_year_clean, <span class="kw">aes</span>(<span class="dt">x=</span>gender, <span class="dt">fill=</span>gender)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>=<span class="st">&quot;#fc8d59&quot;</span>, <span class="st">&quot;male&quot;</span>=<span class="st">&quot;#2166ac&quot;</span>),
+                    <span class="dt">na.value=</span><span class="st">&quot;white&quot;</span>)</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-16-1.png" width="480" style="display: block; margin: auto;" /></p>
+</section><section id="by-year" class="slide level2">
+<h2>By year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(maintainer_year_clean, <span class="kw">aes</span>(<span class="dt">x=</span>gender, <span class="dt">fill=</span>gender)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>=<span class="st">&quot;#fc8d59&quot;</span>, <span class="st">&quot;male&quot;</span>=<span class="st">&quot;#2166ac&quot;</span>),
+                    <span class="dt">na.value=</span><span class="st">&quot;white&quot;</span>) +
+<span class="st">  </span><span class="kw">facet_wrap</span>(~year)</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-17-1.png" width="864" style="display: block; margin: auto;" /></p>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(maintainer_year_clean, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">fill=</span>gender)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>=<span class="st">&quot;#fc8d59&quot;</span>, <span class="st">&quot;male&quot;</span>=<span class="st">&quot;#2166ac&quot;</span>),
+                    <span class="dt">na.value=</span><span class="st">&quot;white&quot;</span>)</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-18-1.png" width="864" style="display: block; margin: auto;" /></p>
+</section><section id="focus-on-proportions" class="slide level2">
+<h2>Focus on proportions</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(maintainer_year_clean, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">product</span>(year), <span class="dt">fill=</span>gender)) +
+<span class="st">  </span><span class="kw">geom_mosaic</span>() +
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;female&quot;</span>=<span class="st">&quot;#fc8d59&quot;</span>, <span class="st">&quot;male&quot;</span>=<span class="st">&quot;#2166ac&quot;</span>),
+                    <span class="dt">na.value=</span><span class="st">&quot;white&quot;</span>)</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-19-1.png" width="864" style="display: block; margin: auto;" /></p>
+</section><section id="section-5" class="slide level2 white">
+<h2></h2>
+<p><img class="cover" src="images/keep_calm_and_r_lady_on.png" alt="", width=2000></p>
+</section>
+
+  <!--
+  To hide progress bar from entire presentation
+  just remove “progress” element.
+  -->
+  <!-- <div class="progress"></div> -->
+  <script src="galentine_files/rmdshower/node_modules/shower/node_modules/shower-core/shower.min.js"></script>
+  <!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+  <!-- Photos by John Carey, fiftyfootshadows.net -->
+
+    <script>renderMathInElement(document.body);</script>
+  
+  
+</body>
+</html>
