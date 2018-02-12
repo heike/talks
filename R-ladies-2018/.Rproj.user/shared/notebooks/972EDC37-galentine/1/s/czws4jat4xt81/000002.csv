@@ -1,3 +1,0 @@
-"0","trips <- readRDS(""data/trips-2017.rds"")"
-"0","trips %>% ggplot(aes(x = `Duration (ms)`/1000/60)) + "
-"0","  geom_histogram(binwidth=15) + xlab(""Trip Duration (in mins)"")"

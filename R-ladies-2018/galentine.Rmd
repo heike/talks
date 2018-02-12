@@ -16,10 +16,15 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, cache = FALSE)
 ```
 
 
-## ggGalentine {.white}
+# ggGalentine 
 
-<img class="cover" src="images/medley.png" alt="", width=2000>
+## About me
 
+- Heike Hofmann
+- R lady since about 2016
+- R user and developer since 1995 (I got my intro to R from Bill Venables!!!!)
+- maintainer of 1 R package, (co-)author of 12 packages
+- other programming languages: Pascal, C, C++
 
 ## What is Galentine's day?
 

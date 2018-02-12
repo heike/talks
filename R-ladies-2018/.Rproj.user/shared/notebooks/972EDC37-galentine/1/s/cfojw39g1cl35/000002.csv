@@ -1,3 +1,0 @@
-"0","stations <- read.csv(""data/stations.csv"")"
-"0","stations %>% ggplot(aes(x = long, y = lat)) + "
-"0","  geom_point() + coord_equal()"
