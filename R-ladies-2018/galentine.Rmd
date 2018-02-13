@@ -173,7 +173,6 @@ Thickness of lines shows number of rentals - metro stations are popular start an
 <p class="double-flow">
 ![](images/geomnet-rockville.png)
 </p><p class="double-flow">
-<br><br><br>
 Made with R package `geomnet` by Sam Tyner
 </p>
 </div>
@@ -415,5 +414,47 @@ ggplot(maintainer_year_clean, aes(x=product(year), fill=gender)) +
 ## {.white}
 
 <img class="cover" src="images/keep_calm_and_r_lady_on.png" alt="", width=2000>
+
+
+## Slow down ... 
+
+- slides at https://heike.github.io/talks/R-ladies-2018/galentine.html 
+- R markdown file, code and data on github: `heike/talks`
+
+## Installation
+
+- Installing `ggplot2`: `install.packages("ggplot2")`
+- ... but it might be better to install the whole of `tidyverse` (collection of packages with similar API): `install.packages("tidyverse")`
+- Installation only happens once, after that you might want to upgrade the package once in a while (twice a year?)
+
+## Usage
+
+- In every session, you have to activate the packages you are using:
+`library(ggplot2)` (or more general: `library(tidyverse)`)
+
+`ggplot()` is the workhorse, we need to define
+
+- the data set we are using: `data = `
+- the *mapping* `aes()`
+- and how we want to show things (the `geom`): e.g. `geom_point()` or `geom_line` or `geom_boxplot`
+
+
+## Example: Diamonds data
+
+```{r}
+library(ggplot2)
+ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point()
+```
+
+
+## Your Turn {.white}
+
+<img class="cover" src="images/blue.jpeg" alt="" width=2000>
+
+- <span style="color:white">Expand on the previous example: map the cut of a diamond `clarity` to the aesthetic colour. </span>
+- <span style="color:white">Change-up the previous plot: map `clarity` to the x axis, `carat/price` on the y axis and show the results in boxplots. </span>
+- <span style="color:white">Figure out how to draw a histogram (`geom_histogram`) of price. Set the `binwidth` (in `geom_histogram`) to different values. What happens for `binwidth=100`?</span>
+
+## Where to find help
 
 

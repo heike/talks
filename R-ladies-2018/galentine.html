@@ -161,7 +161,7 @@ trips %&gt;%<span class="st"> </span><span class="kw">ggplot</span>(<span class=
 <img src="images/geomnet-rockville.png" />
 </p>
 <p class="double-flow">
-<br><br><br> Made with R package <code>geomnet</code> by Sam Tyner
+Made with R package <code>geomnet</code> by Sam Tyner
 </p>
 </div>
 </section><section id="who-is-biking-when" class="slide level2">
@@ -328,6 +328,30 @@ maintainer_year_clean &lt;-<span class="st"> </span>maintainer_year_clean %&gt;%
 </section><section id="section-5" class="slide level2 white">
 <h2></h2>
 <p><img class="cover" src="images/keep_calm_and_r_lady_on.png" alt="", width=2000></p>
+</section><section id="slow-down" class="slide level2">
+<h2>Slow down …</h2>
+<ul>
+<li>slides at <a href="https://heike.github.io/talks/R-ladies-2018/galentine.html" class="uri">https://heike.github.io/talks/R-ladies-2018/galentine.html</a></li>
+<li>R markdown file, code and data on github: <code>heike/talks</code></li>
+</ul>
+</section><section id="installation" class="slide level2">
+<h2>Installation</h2>
+<ul>
+<li>Installing <code>ggplot2</code>: <code>install.packages(&quot;ggplot2&quot;)</code></li>
+<li>… but it might be better to install the whole of <code>tidyverse</code> (collection of packages with similar API): <code>install.packages(&quot;tidyverse&quot;)</code></li>
+<li>Installation only happens once, after that you might want to upgrade the package once in a while (twice a year?)</li>
+</ul>
+</section><section id="usage" class="slide level2">
+<h2>Usage</h2>
+<ul>
+<li>In every session, you have to activate the packages you are using: <code>library(ggplot2)</code> (or more general: <code>library(tidyverse)</code>)</li>
+</ul>
+<p><code>ggplot()</code> is the workhorse, we need to define</p>
+<ul>
+<li>the data set we are using: <code>data =</code></li>
+<li>the <em>mapping</em> <code>aes()</code></li>
+<li>and how we want to show things (the <code>geom</code>): e.g. <code>geom_point()</code> or <code>geom_line</code> or <code>geom_boxplot</code></li>
+</ul>
 </section>
 
   <!--
