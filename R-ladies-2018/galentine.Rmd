@@ -231,7 +231,7 @@ prettify(p, label.padding = unit(0.08, "lines"))
 - Clear distinction between work days and the weekend:
     - Commute peaks on work days
     - holidays, e.g. in January: New Year's day, MLK
-- Inauguration on Jan 20, Science march on Jan 21 (more rentals on Sat)    
+- Inauguration on Jan 20, Women's march on Jan 21 (more rentals on Sat), science march on April 22    
 - Weather events: there was freezing rain and snow in the afternoon of Nov 7
 - US traditions: biking is not generally an activity associated with Thanksgiving<br><br>
 - plot made with the package `sugrrants` by Earo Wang
@@ -457,4 +457,8 @@ ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point()
 
 ## Where to find help
 
-
+- ggplot2 cookbook (Winston Chang): http://www.cookbook-r.com/Graphs/
+- RStudio cheat sheet: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+- ggplot2 documentation: http://ggplot2.tidyverse.org/reference/
+- ggplot2 mailing list: https://groups.google.com/forum/?fromgroups#!forum/ggplot2
+- stackoverflow

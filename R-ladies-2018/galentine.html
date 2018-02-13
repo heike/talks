@@ -186,7 +186,7 @@ Made with R package <code>geomnet</code> by Sam Tyner
 <li>Commute peaks on work days</li>
 <li>holidays, e.g. in January: New Year’s day, MLK</li>
 </ul></li>
-<li>Inauguration on Jan 20, Science march on Jan 21 (more rentals on Sat)<br />
+<li>Inauguration on Jan 20, Women’s march on Jan 21 (more rentals on Sat), science march on April 22<br />
 </li>
 <li>Weather events: there was freezing rain and snow in the afternoon of Nov 7</li>
 <li>US traditions: biking is not generally an activity associated with Thanksgiving<br><br></li>
@@ -351,6 +351,28 @@ maintainer_year_clean &lt;-<span class="st"> </span>maintainer_year_clean %&gt;%
 <li>the data set we are using: <code>data =</code></li>
 <li>the <em>mapping</em> <code>aes()</code></li>
 <li>and how we want to show things (the <code>geom</code>): e.g. <code>geom_point()</code> or <code>geom_line</code> or <code>geom_boxplot</code></li>
+</ul>
+</section><section id="example-diamonds-data" class="slide level2">
+<h2>Example: Diamonds data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="galentine_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" /></p>
+</section><section id="your-turn" class="slide level2 white">
+<h2>Your Turn</h2>
+<p><img class="cover" src="images/blue.jpeg" alt="" width=2000></p>
+<ul>
+<li><span style="color:white">Expand on the previous example: map the cut of a diamond <code>clarity</code> to the aesthetic colour. </span></li>
+<li><span style="color:white">Change-up the previous plot: map <code>clarity</code> to the x axis, <code>carat/price</code> on the y axis and show the results in boxplots. </span></li>
+<li><span style="color:white">Figure out how to draw a histogram (<code>geom_histogram</code>) of price. Set the <code>binwidth</code> (in <code>geom_histogram</code>) to different values. What happens for <code>binwidth=100</code>?</span></li>
+</ul>
+</section><section id="where-to-find-help" class="slide level2">
+<h2>Where to find help</h2>
+<ul>
+<li>ggplot2 cookbook (Winston Chang): <a href="http://www.cookbook-r.com/Graphs/" class="uri">http://www.cookbook-r.com/Graphs/</a></li>
+<li>RStudio cheat sheet: <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf</a></li>
+<li>ggplot2 documentation: <a href="http://ggplot2.tidyverse.org/reference/" class="uri">http://ggplot2.tidyverse.org/reference/</a></li>
+<li>ggplot2 mailing list: <a href="https://groups.google.com/forum/?fromgroups#!forum/ggplot2" class="uri">https://groups.google.com/forum/?fromgroups#!forum/ggplot2</a></li>
+<li>stackoverflow</li>
 </ul>
 </section>
 
